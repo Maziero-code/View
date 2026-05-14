@@ -1,0 +1,224 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black:#0a0a0a; --white:#f5f4f0; --accent:#c8f55a; --muted:#6b6b6b; --border:rgba(255,255,255,0.08); --card-bg:#141414; }
+  body { background:var(--black); color:var(--white); font-family:'Outfit',sans-serif; }
+  .portfolio { max-width:780px; margin:0 auto; padding:3rem 2rem 4rem; }
+
+  /* HERO */
+  .hero { display:grid; grid-template-columns:1fr auto; align-items:end; gap:2rem; padding-bottom:3rem; border-bottom:0.5px solid var(--border); margin-bottom:3rem; opacity:0; animation:fadeUp 0.7s ease forwards; }
+  .hero-tag { font-family:'DM Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:1rem; display:flex; align-items:center; gap:8px; }
+  .hero-tag::before { content:''; display:inline-block; width:20px; height:1px; background:var(--accent); }
+  .hero h1 { font-family:'DM Serif Display',serif; font-size:clamp(2.2rem,6vw,3.4rem); font-weight:400; line-height:1.1; color:var(--white); margin-bottom:1rem; }
+  .hero h1 em { font-style:italic; color:var(--accent); }
+  .hero-sub { font-size:15px; color:var(--muted); font-weight:300; max-width:380px; line-height:1.65; }
+  .hero-badge { background:var(--card-bg); border:0.5px solid var(--border); border-radius:12px; padding:1.2rem 1.4rem; text-align:center; min-width:120px; flex-shrink:0; }
+  .hero-badge .num { font-family:'DM Serif Display',serif; font-size:2.4rem; color:var(--accent); line-height:1; display:block; margin-bottom:4px; }
+  .hero-badge .label { font-size:11px; color:var(--muted); font-family:'DM Mono',monospace; letter-spacing:0.05em; }
+
+  /* SECTION */
+  .section-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); margin-bottom:1.5rem; display:flex; align-items:center; gap:10px; }
+  .section-label::after { content:''; flex:1; height:0.5px; background:var(--border); }
+
+  /* ABOUT */
+  .about-section { margin-bottom:3rem; opacity:0; animation:fadeUp 0.7s ease 0.15s forwards; }
+  .about-card { background:var(--card-bg); border:0.5px solid var(--border); border-radius:14px; padding:1.8rem; display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+  .about-text p { font-size:14.5px; color:var(--muted); font-weight:300; line-height:1.8; }
+  .about-text p span { color:var(--white); font-weight:400; }
+  .about-highlights { display:flex; flex-direction:column; gap:10px; justify-content:center; }
+  .highlight-item { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--muted); font-weight:300; }
+  .highlight-item .dot { width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  .highlight-item strong { color:var(--white); font-weight:500; }
+
+  /* SKILLS */
+  .skills-section { margin-bottom:3rem; opacity:0; animation:fadeUp 0.7s ease 0.3s forwards; }
+  .skills-grid { display:flex; flex-wrap:wrap; gap:8px; }
+  .skill-chip { font-family:'DM Mono',monospace; font-size:12px; padding:7px 14px; border-radius:999px; border:0.5px solid var(--border); color:var(--white); background:var(--card-bg); transition:all 0.2s ease; cursor:default; }
+  .skill-chip:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
+  .skill-chip.learning { border-style:dashed; color:var(--muted); }
+  .skill-chip.learning::after { content:' ↗'; font-size:10px; opacity:0.6; }
+
+  /* PROJECTS */
+  .projects-section { margin-bottom:3rem; opacity:0; animation:fadeUp 0.7s ease 0.45s forwards; }
+  .projects-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+  .project-card {
+    background:var(--card-bg); border:0.5px solid var(--border); border-radius:14px;
+    padding:1.5rem; display:flex; flex-direction:column; gap:12px;
+    text-decoration:none; transition:border-color 0.2s ease, transform 0.2s ease;
+    cursor:pointer;
+  }
+  .project-card:hover { border-color:rgba(200,245,90,0.35); transform:translateY(-3px); }
+
+  .project-header { display:flex; justify-content:space-between; align-items:flex-start; }
+  .project-num { font-family:'DM Serif Display',serif; font-size:1.6rem; color:rgba(200,245,90,0.12); line-height:1; }
+  .project-arrow { color:var(--muted); font-size:16px; transition:color 0.2s, transform 0.2s; margin-top:2px; }
+  .project-card:hover .project-arrow { color:var(--accent); transform:translate(3px,-3px); }
+
+  .project-name { font-size:15px; font-weight:500; color:var(--white); line-height:1.3; }
+  .project-desc { font-size:13px; color:var(--muted); font-weight:300; line-height:1.6; flex:1; }
+
+  .project-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+  .project-tag { font-family:'DM Mono',monospace; font-size:10px; padding:3px 9px; border-radius:999px; background:rgba(200,245,90,0.07); color:rgba(200,245,90,0.6); border:0.5px solid rgba(200,245,90,0.15); }
+
+  /* CONTACT */
+  .contact-section { opacity:0; animation:fadeUp 0.7s ease 0.6s forwards; }
+  .contact-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+  .contact-link { background:var(--card-bg); border:0.5px solid var(--border); border-radius:12px; padding:1.1rem 1rem; text-decoration:none; display:flex; flex-direction:column; gap:6px; transition:all 0.2s ease; }
+  .contact-link:hover { border-color:var(--accent); background:rgba(200,245,90,0.04); }
+  .contact-link .c-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; color:var(--muted); text-transform:uppercase; }
+  .contact-link .c-value { font-size:12.5px; color:var(--white); font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .contact-link .c-icon { font-size:18px; color:var(--accent); margin-bottom:2px; }
+
+  /* FOOTER */
+  .footer { margin-top:3.5rem; padding-top:1.5rem; border-top:0.5px solid var(--border); display:flex; justify-content:space-between; align-items:center; opacity:0; animation:fadeUp 0.7s ease 0.75s forwards; }
+  .footer-text { font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:0.05em; }
+  .footer-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 2s ease infinite; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+
+  @media(max-width:520px){
+    .hero{grid-template-columns:1fr} .hero-badge{display:none}
+    .contact-grid{grid-template-columns:1fr}
+    .about-card{grid-template-columns:1fr}
+    .projects-grid{grid-template-columns:1fr}
+  }
+</style>
+
+<div class="portfolio">
+
+  <div class="hero">
+    <div>
+      <div class="hero-tag">Portfólio — 2025</div>
+      <h1>Mateus<br><em>Maziero</em></h1>
+      <p class="hero-sub">Analista de Suporte de TI em evolução — construindo soluções com código e transformando problemas em produtos.</p>
+    </div>
+    <div class="hero-badge">
+      <span class="num">4</span>
+      <span class="label">Projetos</span>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <div class="section-label">Sobre mim</div>
+    <div class="about-card">
+      <div class="about-text">
+        <p><span>Cursando Análise e Desenvolvimento de Sistemas</span>, uno minha experiência com atendimento e tecnologia para construir soluções inovadoras e eficientes. Acredito que entender pessoas é tão importante quanto escrever bom código.</p>
+        <br>
+        <p>Estou em busca de <span>novas oportunidades</span> para aplicar meu conhecimento e contribuir com equipes que valorizam inovação, colaboração e crescimento contínuo.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-item"><div class="dot"></div><div><strong>Formação</strong> — Análise e Desenvolvimento de Sistemas</div></div>
+        <div class="highlight-item"><div class="dot"></div><div><strong>Perfil</strong> — Comprometido e adaptável</div></div>
+        <div class="highlight-item"><div class="dot"></div><div><strong>Foco</strong> — Soluções eficientes e inovadoras</div></div>
+        <div class="highlight-item"><div class="dot"></div><div><strong>Status</strong> — Aberto a oportunidades</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-section">
+    <div class="section-label">Stack técnica</div>
+    <div class="skills-grid">
+      <span class="skill-chip">HTML</span>
+      <span class="skill-chip">CSS</span>
+      <span class="skill-chip">JavaScript</span>
+      <span class="skill-chip">TypeScript</span>
+      <span class="skill-chip">C#</span>
+      <span class="skill-chip">MySQL</span>
+      <span class="skill-chip learning">Python</span>
+      <span class="skill-chip learning">Kotlin</span>
+    </div>
+  </div>
+
+  <div class="projects-section">
+    <div class="section-label">Projetos em destaque</div>
+    <div class="projects-grid">
+
+      <a class="project-card" href="https://github.com/Maziero-code/Login-Astro" target="_blank">
+        <div class="project-header">
+          <span class="project-num">01</span>
+          <i class="ti ti-arrow-up-right project-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="project-name">Login Astro</div>
+        <div class="project-desc">Tela de login temática com design inspirado na estética espacial do Astro, construída com HTML e CSS puros com atenção aos detalhes visuais.</div>
+        <div class="project-tags">
+          <span class="project-tag">HTML</span>
+          <span class="project-tag">CSS</span>
+          <span class="project-tag">JavaScript</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/Maziero-code/Banco-TypeScript" target="_blank">
+        <div class="project-header">
+          <span class="project-num">02</span>
+          <i class="ti ti-arrow-up-right project-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="project-name">Banco TypeScript</div>
+        <div class="project-desc">Sistema bancário orientado a objetos com classes, herança, modificadores de acesso e decorators de validação — demonstrando domínio de POO com TypeScript.</div>
+        <div class="project-tags">
+          <span class="project-tag">TypeScript</span>
+          <span class="project-tag">POO</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/Maziero-code/Alurabook-complete" target="_blank">
+        <div class="project-header">
+          <span class="project-num">03</span>
+          <i class="ti ti-arrow-up-right project-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="project-name">AluraBook</div>
+        <div class="project-desc">E-commerce responsivo de livros de tecnologia com abordagem mobile-first, carrossel interativo e layout adaptável para todos os dispositivos.</div>
+        <div class="project-tags">
+          <span class="project-tag">HTML</span>
+          <span class="project-tag">CSS</span>
+          <span class="project-tag">SwiperJS</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/Maziero-code/IMC-CALCULATOR" target="_blank">
+        <div class="project-header">
+          <span class="project-num">04</span>
+          <i class="ti ti-arrow-up-right project-arrow" aria-hidden="true"></i>
+        </div>
+        <div class="project-name">IMC Calculator</div>
+        <div class="project-desc">Calculadora de Índice de Massa Corporal interativa com interface limpa, lógica em JavaScript e feedback visual imediato ao usuário.</div>
+        <div class="project-tags">
+          <span class="project-tag">HTML</span>
+          <span class="project-tag">CSS</span>
+          <span class="project-tag">JavaScript</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="contact-section">
+    <div class="section-label">Contato</div>
+    <div class="contact-grid">
+      <a class="contact-link" href="mailto:mateusmaziero0205@gmail.com">
+        <i class="ti ti-mail c-icon" aria-hidden="true"></i>
+        <span class="c-label">Email</span>
+        <span class="c-value">mateusmaziero0205@gmail.com</span>
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/mateus-maziero-a8b8711b5/" target="_blank">
+        <i class="ti ti-brand-linkedin c-icon" aria-hidden="true"></i>
+        <span class="c-label">LinkedIn</span>
+        <span class="c-value">mateus-maziero</span>
+      </a>
+      <a class="contact-link" href="https://github.com/Maziero-code" target="_blank">
+        <i class="ti ti-brand-github c-icon" aria-hidden="true"></i>
+        <span class="c-label">GitHub</span>
+        <span class="c-value">Maziero-code</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="footer-text">disponível para novas oportunidades</span>
+    <div class="footer-dot"></div>
+  </div>
+
+</div>
